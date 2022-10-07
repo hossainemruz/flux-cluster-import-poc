@@ -1,0 +1,99 @@
+registryFQDN: ""
+
+kubePrometheusStack:
+  create: true
+  labels: {}
+
+panopticon:
+  image:
+    # Docker registry used to pull operator image
+    registry: appscode
+    # Name of operator container image
+    repository: panopticon
+    # Operator container image tag
+    tag: ""
+    # Compute Resources required by the operator container
+    resources: {}
+    # Security options the operator container should run with
+    securityContext: {}
+
+grafanaOperator:
+  image:
+    # Docker registry used to pull operator image
+    registry: appscode
+    # Name of operator container image
+    repository: grafana-tools
+    # Operator container image tag
+    tag: ""
+    # Compute Resources required by the operator container
+    resources: {}
+    # Security options the operator container should run with
+    securityContext: {}
+
+grafanaUIServer:
+  image:
+    # Docker registry used to pull operator image
+    registry: appscode
+    # Name of operator container image
+    repository: grafana-tools
+    # Operator container image tag
+    tag: ""
+    # Compute Resources required by the operator container
+    resources: {}
+    # Security options the operator container should run with
+    securityContext: {}
+
+kubeGrafanaDashboard:
+  enabled: true
+  dashboard:
+    # ID of Grafana folder where these dashboards will be applied
+    folderID: 0
+    # If true, dashboard with matching uid will be overwritten
+    overwrite: true
+    templatize:
+      # If true, datasource will be prefixed to dashboard name
+      title: false
+      # If true, datasource will be hardcoded in the dashboard
+      datasource: true
+    multicluster:
+      global:
+        enabled: false
+      etcd:
+        enabled: false
+
+  grafana:
+    # Name of Grafana Appbinding where these dashboards are applied
+    name: ""
+    # Namespace of Grafana Appbinding where these dashboards are applied
+    namespace: ""
+    # Timezone for the default dashboards
+    # Other options are: browser or a specific timezone, i.e. Europe/Luxembourg
+    defaultDashboardsTimezone: utc
+
+  coreDns:
+    enabled: true
+
+  kubeEtcd:
+    enabled: true
+
+  kubeApiServer:
+    enabled: true
+
+  kubeControllerManager:
+    enabled: true
+
+  kubelet:
+    enabled: true
+
+  kubeProxy:
+    enabled: true
+
+  kubeScheduler:
+    enabled: true
+
+  nodeExporter:
+    enabled: true
+
+  prometheus:
+    # Enable/Disable Grafana dashboards provisioning for prometheus remote write feature
+    remoteWriteDashboards: false

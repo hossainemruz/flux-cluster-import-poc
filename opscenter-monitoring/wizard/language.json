@@ -1,0 +1,45 @@
+{
+    "bn": {},
+    "en": {
+      "buttons": {
+        "done": "Save & Test"
+      },
+      "labels": {
+        "authSection": "Auth Section",
+        "caCert": "ca.crt",
+        "clientCert": "client.cert",
+        "clientKey": "client.key",
+        "configure_using_url_or_service_question": "Configure using Prometheus Service or Public URL?",
+        "install_prometheus": "Install Prometheus",
+        "install_prometheus_instruction": "You need to setup Prometheus, If you want to use KubeDB-UI and Grafana. Click the button below to install it in this Cluster ...",
+        "license": "License",
+        "password": "Password",
+        "prometheus": {
+          "name": "Prometheus"
+        },
+        "provide_url": "Public URL",
+        "provide_service": "Prometheus Service",
+        "scheme": "Scheme",
+        "service": {
+          "name": "Name",
+          "namespace": "Namespace",
+          "title": "Service"
+        },
+        "serviceMonitorSelector": {
+          "key": "Key",
+          "label": "Service Monitor Selector",
+          "value": "Value"
+        },
+        "ruleSelector": {
+          "key": "Key",
+          "label": "Rule Selector",
+          "value": "Value"
+        },
+        "servicePort": "Service Port",
+        "tlsClientAuth": "TLS Client Auth",
+        "url": "URL",
+        "username": "Username",
+        "caCrt": "CA Crt"
+      }
+    }
+  }

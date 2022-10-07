@@ -1,0 +1,317 @@
+{
+    "discriminator": {
+      "configureType": {
+        "type": "string"
+      },
+      "services": {
+        "type": "array"
+      },
+      "prometheuses": {
+        "type": "array"
+      }
+    },
+    "elements": [
+      {
+        "computed": "getServices",
+        "if": "returnFalse",
+        "schema": {
+          "$ref": "discriminator#/properties/services"
+        },
+        "type": "input"
+      },
+      {
+        "computed": "getPrometheuses",
+        "if": "returnFalse",
+        "schema": {
+          "$ref": "discriminator#/properties/prometheuses"
+        },
+        "type": "input"
+      },
+      {
+        "label": {
+          "text": "labels.install_prometheus_instruction"
+        },
+        "type": "label-element"
+      },
+      {
+        "customClass": "mb-20",
+        "label": {
+          "text": "labels.install_prometheus"
+        },
+        "type": "anchor",
+        "url": {
+          "params": {
+            "cluster": {
+              "$ref": "store#/route/params/cluster"
+            },
+            "domain": {
+              "$ref": "store#/domain"
+            },
+            "owner": {
+              "$ref": "store#/route/params/user"
+            }
+          },
+          "path": "${domain}/${owner}/kubernetes/${cluster}/helm/v3/releases/create?charturl=https://prometheus-community.github.io/helm-charts&chartname=kube-prometheus-stack&namespace=monitoring"
+        }
+      },
+      {
+        "computed": "setConfigureType",
+        "label": {
+          "text": "labels.configure_using_url_or_service_question"
+        },
+        "onChange": "onConfigureTypeChange",
+        "options": [
+          {
+            "text": "labels.provide_url",
+            "value": "url"
+          },
+          {
+            "text": "labels.provide_service",
+            "value": "service"
+          }
+        ],
+        "schema": {
+          "$ref": "discriminator#/properties/configureType"
+        },
+        "type": "radio"
+      },
+      {
+        "if": "showConfigurationFieldsFor|url",
+        "label": {
+          "text": "labels.url"
+        },
+        "schema": {
+          "$ref": "schema#/properties/url"
+        },
+        "type": "input"
+      },
+      {
+        "if": "showConfigurationFieldsFor|service",
+        "label": {
+          "text": "labels.service.title"
+        },
+        "type": "label-element"
+      },
+      {
+        "if": "showConfigurationFieldsFor|service",
+        "elements": [
+          {
+            "fetch": "getNamespaces",
+            "label": {
+              "text": "labels.service.namespace"
+            },
+            "onChange": "onNamespaceChange",
+            "schema": {
+              "$ref": "schema#/properties/service/properties/namespace"
+            },
+            "type": "select"
+          },
+          {
+            "fetch": "getPrometheuses|/service/prometheus",
+            "label": {
+              "text": "labels.prometheus.name"
+            },
+            "onChange": "onPrometheusChange",
+            "schema": {
+              "$ref": "schema#/properties/service/properties/prometheus"
+            },
+            "type": "select"
+          },
+          {
+            "fetch": "getServices|/service/name",
+            "label": {
+              "text": "labels.service.name"
+            },
+            "schema": {
+              "$ref": "schema#/properties/service/properties/name"
+            },
+            "type": "select"
+          },
+          {
+            "fetch": "getServicePorts",
+            "label": {
+              "text": "labels.servicePort"
+            },
+            "schema": {
+              "$ref": "schema#/properties/service/properties/port"
+            },
+            "type": "select"
+          },
+          {
+            "computed": "setScheme",
+            "label": {
+              "text": "labels.scheme"
+            },
+            "options": [
+              {
+                "text": "http",
+                "value": "http"
+              },
+              {
+                "text": "https",
+                "value": "https"
+              }
+            ],
+            "schema": {
+              "$ref": "schema#/properties/service/properties/scheme"
+            },
+            "type": "radio"
+          }
+        ],
+        "schema": {
+          "$ref": "schema#/properties/service"
+        },
+        "type": "single-step-form"
+      },
+      {
+        "isArray": true,
+        "keys": {
+          "label": {
+            "text": "labels.serviceMonitorSelector.key"
+          }
+        },
+        "label": {
+          "text": "labels.serviceMonitorSelector.label"
+        },
+        "schema": {
+          "$ref": "schema#/properties/serviceMonitorSelector"
+        },
+        "type": "key-value-input-form",
+        "values": {
+          "label": {
+            "text": "labels.serviceMonitorSelector.value"
+          },
+          "schema": {
+            "$ref": "schema#/properties/serviceMonitorSelector/additionalProperties"
+          },
+          "type": "input"
+        }
+      },
+      {
+        "isArray": true,
+        "keys": {
+          "label": {
+            "text": "labels.ruleSelector.key"
+          }
+        },
+        "label": {
+          "text": "labels.ruleSelector.label"
+        },
+        "schema": {
+          "$ref": "schema#/properties/ruleSelector"
+        },
+        "type": "key-value-input-form",
+        "values": {
+          "label": {
+            "text": "labels.ruleSelector.value"
+          },
+          "schema": {
+            "$ref": "schema#/properties/ruleSelector/additionalProperties"
+          },
+          "type": "input"
+        }
+      },
+      {
+        "label": {
+          "text": "labels.authSection"
+        },
+        "type": "label-element"
+      },
+      {
+        "label": {
+          "text": "labels.username"
+        },
+        "schema": {
+          "$ref": "schema#/properties/username"
+        },
+        "type": "input"
+      },
+      {
+        "label": {
+          "text": "labels.password"
+        },
+        "schema": {
+          "$ref": "schema#/properties/password"
+        },
+        "type": "input"
+      },
+      {
+        "elements": [
+          {
+            "label": {
+              "text": "labels.license"
+            },
+            "schema": {
+              "$ref": "schema#/properties/license"
+            },
+            "type": "editor"
+          }
+        ],
+        "hideForm": true,
+        "label": {
+          "text": "License",
+          "isSubsection": true
+        },
+        "show_label": "true",
+        "type": "single-step-form"
+      },
+      {
+        "elements": [
+          {
+            "decoder": "decodeBase64",
+            "encoder": "encodeBase64",
+            "label": {
+              "text": "labels.caCert"
+            },
+            "schema": {
+              "$ref": "schema#/properties/caCert"
+            },
+            "type": "editor"
+          }
+        ],
+        "hideForm": true,
+        "if": "showtlsClientAuthAndCaCert",
+        "label": {
+          "text": "labels.caCrt",
+          "isSubsection": true
+        },
+        "show_label": true,
+        "type": "single-step-form"
+      },
+      {
+        "elements": [
+          {
+            "decoder": "decodeBase64",
+            "encoder": "encodeBase64",
+            "label": {
+              "text": "labels.clientCert"
+            },
+            "schema": {
+              "$ref": "schema#/properties/clientCert"
+            },
+            "type": "editor"
+          },
+          {
+            "decoder": "decodeBase64",
+            "encoder": "encodeBase64",
+            "label": {
+              "text": "labels.clientKey"
+            },
+            "schema": {
+              "$ref": "schema#/properties/clientKey"
+            },
+            "type": "editor"
+          }
+        ],
+        "hideForm": true,
+        "if": "showtlsClientAuthAndCaCert",
+        "label": {
+          "text": "labels.tlsClientAuth",
+          "isSubsection": true
+        },
+        "show_label": true,
+        "type": "single-step-form"
+      }
+    ],
+    "type": "single-step-form"
+  }

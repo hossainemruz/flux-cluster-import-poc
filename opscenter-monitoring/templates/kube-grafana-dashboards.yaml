@@ -1,0 +1,19 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-grafana-dashboards
+  namespace: kubeops
+spec:
+  interval: 30m
+  releaseName: kube-grafana-dashboards
+  chart:
+    spec:
+      chart: kube-grafana-dashboards
+      version: "v2022.06.14"
+      sourceRef:
+        kind: HelmRepository
+        name: appscode
+        namespace: flux-system
+  values:
+    registryFQDN: {{ .Values.registryFQDN }}
+    {{- .Values.kubeGrafanaDashboard | toYaml | nindent 4}}

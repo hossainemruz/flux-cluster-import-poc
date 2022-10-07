@@ -1,0 +1,72 @@
+{
+    "properties": {
+      "caCert": {
+        "type": "string"
+      },
+      "clientCert": {
+        "type": "string"
+      },
+      "clientKey": {
+        "type": "string"
+      },
+      "license": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string",
+        "format": "password"
+      },
+      "service": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "namespace": {
+            "type": "string"
+          },
+          "port": {
+            "type": "int32"
+          },
+          "prometheus": {
+            "type": "string"
+          },
+          "scheme": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "namespace",
+          "name",
+          "port",
+          "prometheus",
+          "scheme"
+        ],
+        "type": "object"
+      },
+      "serviceMonitorSelector": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "ruleSelector": {
+        "additionalProperties": {
+          "type": "string"
+        },
+        "type": "object"
+      },
+      "url": {
+        "type": "string"
+      },
+      "username": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "service",
+      "url",
+      "serviceMonitorSelector",
+      "ruleSelector"
+    ],
+    "type": "object"
+  }

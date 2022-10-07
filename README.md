@@ -20,3 +20,21 @@ helm install flux fluxcd-community/flux2 \
 --set kustomizecontroller.create=false \
 --set notificationcontroller.create=false
 ```
+
+#### Install `opscenter-core`
+
+```bash
+helm install opscenter-core opscenter-core -n kubeops --create-namespace
+```
+
+#### Install `opscenter-essential`
+
+```bash
+helm install opscenter-essential opscenter-essential -n kubeops --create-namespace
+```
+
+#### Install `opscenter-monitoring`
+
+```bash
+helm install opscenter-monitoring opscenter-monitoring -n kubeops --create-namespace
+```
